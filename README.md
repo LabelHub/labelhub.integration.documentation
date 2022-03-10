@@ -6,4 +6,5 @@ Syncronization of files between LabelHub S3 and the local server can be setup in
 ### PowerShell syncronization
 In this repository you will find an example on a simple integration using PowerShell. The integration is very simple and does not require running third party software(except for AWS Cmdlets). The code can easily be modified to suit your local needs.
 
-
+### WinSCP syncronization
+Located inside the winscp folder is an example of an automation-script for WinSCP. The only files that needs modifications are `labelhub-sync.bat` where credentials and bucketname are required. Any local folders can easily be overwritten if desired. It is recommended to download WinSCP from the [official source](https://winscp.net/eng/download.php), but the nessesary binaries are also included in this repository if needed.
