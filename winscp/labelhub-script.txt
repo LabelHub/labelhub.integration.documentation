@@ -1,0 +1,53 @@
+#
+# ! Nothing should need changing in this file !
+#
+
+# Automatically abort script on errors
+option batch abort
+
+# Disable overwrite confirmations that conflict with the previous
+option confirm off
+
+# Connect to S3
+open s3://%accesskey%:%secret%@s3.amazonaws.com/%bucketname%
+
+# Force binary mode transfer
+option transfer binary
+
+# Upload new XML-files from outgoing directory to todo on S3
+lcd %outgoingXMLTemp%
+cd /%bucketname%/from-erp-to-labelhub/todo/xml
+put *.xml
+
+# Download any new 1up PDFs via a temporary folder to avoid raceconditions
+lcd %incoming1upPDF%
+cd /%bucketname%/from-labelhub-to-erp/1up-pdf
+mkdir temp
+mv *.pdf temp/*.pdf
+get temp/*.pdf
+rm temp/*.pdf
+rmdir temp
+
+# Download any new 1up thumbnails via a temporary folder to avoid raceconditions
+lcd %incoming1upThumbnail%
+cd /%bucketname%/from-labelhub-to-erp/1up-thumbnail
+mkdir temp
+mv *.png temp/*.png
+get temp/*.png
+rm temp/*.png
+rmdir temp
+
+# Download any new SR pdfs via a temporary folder to avoid raceconditions
+lcd %incomingSRPDF%
+cd /%bucketname%/from-labelhub-to-erp/sr-pdf
+mkdir temp
+mv *.pdf temp/*.pdf
+get temp/*.pdf
+rm temp/*.pdf
+rmdir temp
+
+# Disconnect
+close
+
+# Exit WinSCP
+exit
